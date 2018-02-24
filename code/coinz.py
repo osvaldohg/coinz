@@ -24,8 +24,9 @@ for ecoin in data:
 	past=data[ecoin]["Current"]
 	latest=data[ecoin]["MoneyCurrency"]*float(price)
 	data[ecoin]["Current"]=data[ecoin]["MoneyCurrency"]*float(price)
+	increment=data[ecoin]["Increment"]
 	
-	if abs(latest-past) >=100:
+	if abs(latest-past) >=increment:
 		print "notify OZ"
 	
 	current=data[ecoin]["Current"]
@@ -39,7 +40,8 @@ for ecoin in data:
 		data[ecoin]["Min"]=current
 		
 	print "current "+str(current)
-		
+	print "Max "+str(data[ecoin]["Max"])
+	print "Min "+str(data[ecoin]["Min"])
 	#print date
 	print "********************************"
 	
