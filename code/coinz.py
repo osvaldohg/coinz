@@ -2,7 +2,13 @@ import bitso
 import csv
 import json
 from datetime import datetime
+import tweepy
 
+
+def notify(message,coin,value,timestamp):
+	print "lol"
+	tweet_api.update_status(message+" "+coin+" "+value+" "+timestamp)
+	
 api= bitso.Api()
 
 configFileName="../config/config.json"
@@ -12,6 +18,15 @@ data = json.load(config_data)
 config_data.close()
 
 date=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+tweetFileName="../config/twitterKeys.json"
+tweet_data=open(tweetFileName,"r")
+tweet= json.load(tweet_data)
+tweet_data.close()
+#print tweet["twitter"]["CONSUMER_KEY"]
+auth = tweepy.OAuthHandler(tweet["twitter"]["CONSUMER_KEY"],tweet["twitter"]["CONSUMER_SECRET"])
+auth.set_access_token(tweet["twitter"]["ACCESS_KEY"], tweet["twitter"]["ACCESS_SECRET"])
+tweet_api = tweepy.API(auth)
 
 for ecoin in data:
 	print "Checking "+ecoin
@@ -25,10 +40,12 @@ for ecoin in data:
 	
 	if current-data[ecoin]["Notify"] >= data[ecoin]["Increment"]:
 		print "<<<Notify Increment>>>"
+		notify("Incremento",ecoin,str(current),date)
 		data[ecoin]["Notify"]+=100
 		
 	elif current-data[ecoin]["Notify"] <0 :
 		print "<<<Notify Decrement>>>"
+		notify("Decremento",ecoin,str(current),date)
 		data[ecoin]["Notify"]-=100
 		
 	max=data[ecoin]["Max"]
