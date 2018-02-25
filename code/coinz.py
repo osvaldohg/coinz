@@ -5,7 +5,6 @@ from datetime import datetime
 
 api= bitso.Api()
 
-
 configFileName="../config/config.json"
 config_data=open(configFileName,"r")
 
@@ -21,15 +20,17 @@ for ecoin in data:
 	print "coin value "+str(price)
 	print "oz money "+str(data[ecoin]["MoneyInvested"])
 	
-	past=data[ecoin]["Current"]
-	latest=data[ecoin]["MoneyCurrency"]*float(price)
 	data[ecoin]["Current"]=data[ecoin]["MoneyCurrency"]*float(price)
-	increment=data[ecoin]["Increment"]
-	
-	if abs(latest-past) >=increment:
-		print "notify OZ"
-	
 	current=data[ecoin]["Current"]
+	
+	if current-data[ecoin]["Notify"] >= data[ecoin]["Increment"]:
+		print "<<<Notify Increment>>>"
+		data[ecoin]["Notify"]+=100
+		
+	elif current-data[ecoin]["Notify"] <0 :
+		print "<<<Notify Decrement>>>"
+		data[ecoin]["Notify"]-=100
+		
 	max=data[ecoin]["Max"]
 	min=data[ecoin]["Min"]
 	
