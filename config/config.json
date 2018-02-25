@@ -1,0 +1,46 @@
+{  
+   "btc":{  
+      "BitsoTag":"btc_mxn",
+      "MoneyInvested":1000,
+      "MoneyCurrency":0.054321,
+      "Threshold":1100,
+      "Increment":100,
+	  "Notify": 1000,
+	  "Current":9900,
+      "Max":100,
+      "Min":1000
+   },
+   "eth":{  
+      "BitsoTag":"eth_mxn",
+      "MoneyInvested":2000,
+      "MoneyCurrency":0.054321,
+      "Threshold":1100,
+      "Increment":100,
+	  "Notify": 2000,
+	  "Current":0,
+	  "Max":100,
+      "Min":2000
+   },
+   "xrp":{  
+      "BitsoTag":"xrp_mxn",
+      "MoneyInvested":3000,
+      "MoneyCurrency":0.054321,
+      "Threshold":1100,
+      "Increment":100,
+	  "Notify": 3000,
+	  "Current":0,
+      "Max":100,
+      "Min":300
+   },
+   "ltc":{  
+      "BitsoTag":"ltc_mxn",
+      "MoneyInvested":4000,
+      "MoneyCurrency":0.054321,
+      "Threshold":3100,
+      "Increment":100,
+	  "Notify": 4000,
+	  "Current":0,
+      "Max":100,
+      "Min":4000
+   }
+}
