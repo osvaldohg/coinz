@@ -1,0 +1,10 @@
+{  
+   "twitter":{  
+		"CONSUMER_KEY":"your_api_key",
+		"CONSUMER_SECRET":"your_api_key",
+		"ACCESS_KEY":"your_api_key",
+		"ACCESS_SECRET":"your_api_key"
+	  
+   }
+   
+}
