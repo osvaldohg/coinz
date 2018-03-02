@@ -4,8 +4,8 @@ from datetime import datetime
 import tweepy
 
 
-def notify(message,coin,value,timestamp):
-	tweet_api.update_status(message+" "+coin+" "+value+" "+timestamp)
+def notify(message,coin,value,timestamp,max,min):
+	tweet_api.update_status(message+" "+coin+" "+value+" "+"max "+max+" min "+min+" "+timestamp)
 	
 api= bitso.Api()
 
@@ -38,20 +38,20 @@ for ecoin in data:
 	
 	data[ecoin]["Current"]=data[ecoin]["MoneyCurrency"]*float(price)
 	current=data[ecoin]["Current"]
+	max=data[ecoin]["Max"]
+	min=data[ecoin]["Min"]
 	
 	if current-data[ecoin]["Notify"] >= data[ecoin]["Increment"]:
 		print "<<<Notify Increment>>>"
-		notify("Incremento",ecoin,str(current),date)
+		notify("Incremento",ecoin,str(current),date,str(max),str(min))
 		data[ecoin]["Notify"]+=data[ecoin]["Increment"]
 		
 	elif current-data[ecoin]["Notify"] <0 :
 		print "<<<Notify Decrement>>>"
-		notify("Decremento",ecoin,str(current),date)
+		notify("Decremento",ecoin,str(current),date,str(max),str(min))
 		data[ecoin]["Notify"]-=data[ecoin]["Increment"]
 		
-	max=data[ecoin]["Max"]
-	min=data[ecoin]["Min"]
-	
+		
 	if current > max:
 		data[ecoin]["Max"]=current
 	
