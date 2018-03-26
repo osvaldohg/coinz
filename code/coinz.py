@@ -46,7 +46,7 @@ for ecoin in data:
 		notify("Incremento",ecoin,str(current),date,str(max),str(min))
 		data[ecoin]["Notify"]+=data[ecoin]["Increment"]
 		
-	elif current-data[ecoin]["Notify"] < -100 :
+	elif current-data[ecoin]["Notify"] <= -100 :
 		print "<<<Notify Decrement>>>"
 		notify("Decremento",ecoin,str(current),date,str(max),str(min))
 		data[ecoin]["Notify"]-=data[ecoin]["Increment"]
