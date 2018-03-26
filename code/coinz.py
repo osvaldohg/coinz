@@ -58,7 +58,7 @@ for ecoin in data:
 	if current < min:
 		data[ecoin]["Min"]=current
 		
-	print "current "+str(current)
+	print "current "+ecoin+" "+str(current)
 	print "Max "+str(data[ecoin]["Max"])
 	print "Min "+str(data[ecoin]["Min"])
 	
