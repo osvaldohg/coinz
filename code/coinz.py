@@ -1,7 +1,15 @@
 import bitso
 import json
 from datetime import datetime
+from datadog import initialize, statsd
 import tweepy
+
+options = {
+    'statsd_host':'127.0.0.1',
+    'statsd_port':8125
+}
+
+initialize(**options)
 
 
 def notify(message,coin,value,timestamp,max,min):
@@ -34,6 +42,8 @@ for ecoin in data:
 	tick = api.ticker(data[ecoin]["BitsoTag"])
 	price=tick.bid
 	print "coin value "+str(price)
+	statsd.increment("cryptoz",price,tags=["coin:"+ecoin,"env:vagubuntu"])
+	
 	print "oz money "+str(data[ecoin]["MoneyInvested"])
 	
 	data[ecoin]["Current"]=data[ecoin]["MoneyCurrency"]*float(price)
@@ -46,7 +56,7 @@ for ecoin in data:
 		notify("Incremento",ecoin,str(current),date,str(max),str(min))
 		data[ecoin]["Notify"]+=data[ecoin]["Increment"]
 		
-	elif current-data[ecoin]["Notify"] <= -100 :
+	elif current-data[ecoin]["Notify"] < 0 :
 		print "<<<Notify Decrement>>>"
 		notify("Decremento",ecoin,str(current),date,str(max),str(min))
 		data[ecoin]["Notify"]-=data[ecoin]["Increment"]
@@ -59,6 +69,7 @@ for ecoin in data:
 		data[ecoin]["Min"]=current
 		
 	print "current "+ecoin+" "+str(current)
+	statsd.increment("cryptoz.own",current,tags=["coin:"+ecoin,"env:vagubuntu"])
 	print "Max "+str(data[ecoin]["Max"])
 	print "Min "+str(data[ecoin]["Min"])
 	
